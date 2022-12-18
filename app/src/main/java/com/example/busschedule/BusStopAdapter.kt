@@ -26,17 +26,6 @@ class BusStopAdapter(private val onItemClicked: (Schedule) -> Unit) :
         }
     }
 
-    class BusStopViewHolder(private var binding: BusStopItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SimpleDateFormat")
-        fun bind(schedule: Schedule) {
-            binding.stopNameTextView.text = schedule.stopName
-            binding.arrivalTimeTextView.text = SimpleDateFormat("h:mm a").format(
-                Date(schedule.arrivalTime.toLong() * 1000)
-            )
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusStopViewHolder {
         val viewHolder = BusStopViewHolder(
             BusStopItemBinding.inflate(
@@ -55,5 +44,16 @@ class BusStopAdapter(private val onItemClicked: (Schedule) -> Unit) :
     override fun onBindViewHolder(holder: BusStopViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-}
 
+    class BusStopViewHolder(
+        private var binding: BusStopItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SimpleDateFormat")
+        fun bind(schedule: Schedule) {
+            binding.stopNameTextView.text = schedule.stopName
+            binding.arrivalTimeTextView.text = SimpleDateFormat("h:mm a").format(
+                Date(schedule.arrivalTime.toLong() * 1000)
+            )
+        }
+    }
+}
